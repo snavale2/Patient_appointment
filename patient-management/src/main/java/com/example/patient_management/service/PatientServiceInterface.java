@@ -11,4 +11,5 @@ public interface PatientServiceInterface {
     public Patient createPatient(Patient patient);
     public Patient updatePatient(Long id, Patient patientDetails);
     public void deletePatient(Long id);
+    public List<Patient> searchPatients(String query);
 }

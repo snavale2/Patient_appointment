@@ -38,4 +38,9 @@ public class PatientController {
     public void deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
     }
+
+    @GetMapping("/search")
+    public List<Patient> searchPatients(@RequestParam String query) {
+        return patientService.searchPatients(query);
+    }
 }

@@ -47,5 +47,10 @@ public class PatientService implements PatientServiceInterface{
     public void deletePatient(Long id) {
         patientRepository.deleteById(id);
     }
+
+    @Override
+    public List<Patient> searchPatients(String query) {
+        return patientRepository.findByFirstNameContainingOrLastNameContainingOrEmailContaining(query, query, query);
+    }
 }
 
