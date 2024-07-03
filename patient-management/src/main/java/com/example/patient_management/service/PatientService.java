@@ -4,6 +4,7 @@ import com.example.patient_management.model.Patient;
 import com.example.patient_management.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.patient_management.exception.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -20,7 +21,8 @@ public class PatientService implements PatientServiceInterface{
 
     @Override
     public Patient getPatientById(Long id) {
-        return patientRepository.findById(id).orElse(null);
+        return patientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found with id: " + id));
     }
 
     @Override
@@ -30,7 +32,8 @@ public class PatientService implements PatientServiceInterface{
 
     @Override
     public Patient updatePatient(Long id, Patient patientDetails) {
-        Patient patient = patientRepository.findById(id).orElse(null);
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found with id: " + id));
         if (patient != null) {
             patient.setFirstName(patientDetails.getFirstName());
             patient.setLastName(patientDetails.getLastName());

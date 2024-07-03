@@ -1,5 +1,6 @@
 package com.example.patient_management.service;
 
+import com.example.patient_management.exception.ResourceNotFoundException;
 import com.example.patient_management.model.Appointment;
 import com.example.patient_management.model.Patient;
 import com.example.patient_management.repository.AppointmentRepository;
@@ -26,7 +27,8 @@ public class AppointmentService implements AppointmentServiceInterface{
 
     @Override
     public Appointment getAppointmentById(Long id) {
-        return appointmentRepository.findById(id).orElse(null);
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
     }
 
     @Override
