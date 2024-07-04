@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> findByFirstNameContainingOrLastNameContainingOrEmailContaining(String firstName, String lastName, String email);
+    Patient findByEmail(String email);
 }
