@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/appointments")
 public class AppointmentController {
@@ -30,7 +32,7 @@ public class AppointmentController {
 
     @PostMapping
     public Appointment createAppointment(@RequestParam String email, @RequestParam String appointmentTime) {
-        LocalDateTime time = LocalDateTime.parse(appointmentTime);
+        LocalDateTime time = LocalDateTime.parse(appointmentTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         return appointmentService.createAppointmentByEmail(email, time);
     }
 
