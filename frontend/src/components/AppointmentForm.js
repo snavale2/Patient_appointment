@@ -29,6 +29,12 @@ function AppointmentForm({ onSave, initialData }) {
   };
 
   return (
+    <Box
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    height="50vh"
+    >
     <Box component="form" onSubmit={handleSubmit} my={2}>
       <TextField
         select
@@ -57,7 +63,17 @@ function AppointmentForm({ onSave, initialData }) {
         required
         InputLabelProps={{ shrink: true }}
       />
-      <Button type="submit" variant="contained" color="primary">Save</Button>
+      <Box
+        display="flex"
+        justifyContent="center"
+        width="100%"
+        mt={2}
+      >
+        <Button type="submit" variant="contained" color="primary">
+          Submit
+        </Button>
+      </Box>
+    </Box>
     </Box>
   );
 }

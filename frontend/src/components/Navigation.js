@@ -7,7 +7,7 @@ function Navigation() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Patient Management System
+          Patient Appointment System
         </Typography>
         <Button color="inherit" component={Link} to="/">Home</Button>
         <Button color="inherit" component={Link} to="/patients">Patients</Button>

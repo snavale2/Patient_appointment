@@ -7,7 +7,7 @@ export const getAppointments = () => {
 };
 
 export const createAppointment = (appointment) => {
-  return axios.post(API_URL, appointment);
+  return axios.post(API_URL, null, { params: appointment });
 };
 
 export const updateAppointment = (id, appointment) => {

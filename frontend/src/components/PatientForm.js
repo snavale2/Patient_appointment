@@ -14,7 +14,20 @@ function PatientForm({ onSave, initialData }) {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} my={2}>
+    <Box
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    height="50vh"
+    >
+    <Box component="form"
+        onSubmit={handleSubmit}
+        my={2}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        width="50%"
+    >
       <TextField
         label="First Name"
         name="firstName"
@@ -45,8 +58,18 @@ function PatientForm({ onSave, initialData }) {
         margin="normal"
         required
       />
-      <Button type="submit" variant="contained" color="primary">Save</Button>
+      <Box
+        display="flex"
+        justifyContent="center"
+        width="100%"
+        mt={2}
+      >
+        <Button type="submit" variant="contained" color="primary">
+          Submit
+        </Button>
+      </Box>
     </Box>
+  </Box>
   );
 }
 
