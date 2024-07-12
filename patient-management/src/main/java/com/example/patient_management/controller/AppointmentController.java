@@ -19,11 +19,7 @@ public class AppointmentController {
 
     @Autowired
     private AppointmentService appointmentService;
-
-    @GetMapping
-    public List<Appointment> getAllAppointments() {
-        return appointmentService.getAllAppointments();
-    }
+    
 
     @GetMapping("/{id}")
     public Appointment getAppointmentById(@PathVariable Long id) {
@@ -47,10 +43,16 @@ public class AppointmentController {
         appointmentService.deleteAppointment(id);
     }
 
-    @GetMapping("/filter")
-    public List<Appointment> filterAppointments(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time) {
-        return appointmentService.filterAppointments(date, time);
+
+    @GetMapping
+    public List<Appointment> getAppointments(@RequestParam(required = false) String date,
+                                             @RequestParam(required = false) String time) {
+        if (date != null && time != null) {
+            return appointmentService.getAppointmentsByDateTime(LocalDate.parse(date), LocalTime.parse(time));
+        } else if (date != null) {
+            return appointmentService.getAppointmentsByDate(LocalDate.parse(date));
+        } else {
+            return appointmentService.getAllAppointments();
+        }
     }
 }

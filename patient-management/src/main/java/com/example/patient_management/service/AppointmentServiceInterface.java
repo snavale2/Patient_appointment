@@ -15,4 +15,6 @@ public interface AppointmentServiceInterface {
     public Appointment updateAppointment(Long id, Long patientId, LocalDateTime appointmentTime);
     public void deleteAppointment(Long id);
     public List<Appointment> filterAppointments(LocalDate date, LocalTime time);
+    public List<Appointment> getAppointmentsByDateTime(LocalDate date, LocalTime time);
+    public List<Appointment> getAppointmentsByDate(LocalDate date);
 }

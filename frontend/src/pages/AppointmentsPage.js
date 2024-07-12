@@ -19,7 +19,16 @@ function AppointmentsPage() {
   };
 
   const handleFilter = async () => {
-    const response = await getAppointments(filter);
+    const params = {};
+    if (filter.date) {
+      params.date = filter.date;
+    }
+    if (filter.time) {
+      params.time = filter.time;
+    }
+
+    const queryString = new URLSearchParams(params).toString();
+    const response = await getAppointments(queryString);
     setAppointments(response.data);
   };
 
@@ -57,7 +66,7 @@ function AppointmentsPage() {
         {appointments.map((appointment) => (
           <ListItem key={appointment.id}>
             <ListItemText
-              primary={`Appointment with ${appointment.patientEmail}`}
+              primary={`Appointment with ${appointment.patient.firstName} ${appointment.patient.lastName}`}
               secondary={`${new Date(appointment.appointmentTime).toLocaleString()}`}
             />
             <Button variant="contained" color="secondary" onClick={() => handleDelete(appointment.id)}>Delete</Button>

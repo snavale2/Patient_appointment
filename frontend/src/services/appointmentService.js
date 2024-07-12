@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api/appointments';
 
-export const getAppointments = () => {
-  return axios.get(API_URL);
+export const getAppointments = (queryString = '') => {
+  return axios.get(`${API_URL}?${queryString}`);
 };
 
 export const createAppointment = (appointment) => {

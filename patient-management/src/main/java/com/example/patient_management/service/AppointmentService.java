@@ -103,4 +103,12 @@ public class AppointmentService implements AppointmentServiceInterface{
             return appointmentRepository.findAll();
         }
     }
+
+    public List<Appointment> getAppointmentsByDateTime(LocalDate date, LocalTime time) {
+        return appointmentRepository.findByAppointmentTime(LocalDateTime.of(date, time));
+    }
+
+    public List<Appointment> getAppointmentsByDate(LocalDate date) {
+        return appointmentRepository.findByAppointmentTimeBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay());
+    }
 }
