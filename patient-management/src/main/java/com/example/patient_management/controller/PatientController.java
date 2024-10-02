@@ -1,6 +1,6 @@
 package com.example.patient_management.controller;
 
-import com.example.patient_management.model.Patient;
+import com.example.patient_management.dto.PatientDTO;
 import com.example.patient_management.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,22 +16,22 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping
-    public List<Patient> getAllPatients() {
+    public List<PatientDTO> getAllPatients() {
         return patientService.getAllPatients();
     }
 
     @GetMapping("/{id}")
-    public Patient getPatientById(@PathVariable Long id) {
+    public PatientDTO getPatientById(@PathVariable Long id) {
         return patientService.getPatientById(id);
     }
 
     @PostMapping
-    public Patient createPatient(@RequestBody Patient patient) {
+    public PatientDTO createPatient(@RequestBody PatientDTO patient) {
         return patientService.createPatient(patient);
     }
 
     @PutMapping("/{id}")
-    public Patient updatePatient(@PathVariable Long id, @RequestBody Patient patientDetails) {
+    public PatientDTO updatePatient(@PathVariable Long id, @RequestBody PatientDTO patientDetails) {
         return patientService.updatePatient(id, patientDetails);
     }
 
@@ -41,7 +41,7 @@ public class PatientController {
     }
 
     @GetMapping("/search")
-    public List<Patient> searchPatients(@RequestParam String query) {
+    public List<PatientDTO> searchPatients(@RequestParam String query) {
         return patientService.searchPatients(query);
     }
 }

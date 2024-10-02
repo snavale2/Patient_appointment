@@ -1,5 +1,6 @@
 package com.example.patient_management.controller;
 
+import com.example.patient_management.dto.PatientDTO;
 import com.example.patient_management.model.Patient;
 import com.example.patient_management.repository.PatientRepository;
 import com.example.patient_management.service.PatientService;
@@ -30,10 +31,10 @@ public class PatientControllerTest {
 
     @Test
     public void testGetPatients() throws Exception {
-        Patient patient1 = new Patient(1L, "John", "Doe", "john.doe@example.com");
-        Patient patient2 = new Patient(2L, "Jane", "Doe", "jane.doe@example.com");
+        PatientDTO patient1 = new PatientDTO(1L, "John", "Doe", "john.doe@example.com");
+        PatientDTO patient2 = new PatientDTO(2L, "Jane", "Doe", "jane.doe@example.com");
 
-        List<Patient> patients = Arrays.asList(patient1, patient2);
+        List<PatientDTO> patients = Arrays.asList(patient1, patient2);
 
         Mockito.when(patientService.getAllPatients()).thenReturn(patients);
 
@@ -52,9 +53,9 @@ public class PatientControllerTest {
 
     @Test
     public void testCreatePatient() throws Exception {
-        Patient patient = new Patient(1L, "John", "Doe", "john.doe@example.com");
+        PatientDTO patient = new PatientDTO(1L, "John", "Doe", "john.doe@example.com");
 
-        Mockito.when(patientService.createPatient(Mockito.any(Patient.class)))
+        Mockito.when(patientService.createPatient(Mockito.any(PatientDTO.class)))
                 .thenReturn(patient);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/patients")

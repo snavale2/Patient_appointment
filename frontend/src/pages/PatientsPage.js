@@ -62,7 +62,7 @@ function PatientsPage() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => { /* Add edit logic */ }}
+                onClick={() => { console.log("Edit button clicked") }}
               >
                 Edit
               </Button>

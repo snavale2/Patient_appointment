@@ -1,12 +1,11 @@
 package com.example.patient_management.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,5 +19,8 @@ public class Patient {
     private String firstName;
     private String lastName;
     private String email;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
+    private List<Appointment> appointments;
 
 }

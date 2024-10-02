@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Box, List, ListItem, ListItemText, Button } from '@mui/material';
-import { getAppointments, deleteAppointment } from '../services/appointmentService';
+import { TextField, Box, List, ListItem, ListItemText, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { getAppointments, deleteAppointment, updateAppointment } from '../services/appointmentService';
 
 function AppointmentsPage() {
   const [appointments, setAppointments] = useState([]);
   const [filter, setFilter] = useState({ date: '', time: '' });
+  const [editOpen, setEditOpen] = useState(false);
+  const [currentAppointment, setCurrentAppointment] = useState(null);
+  const [editTime, setEditTime] = useState('');
 
   useEffect(() => {
     const loadAppointments = async () => {
@@ -39,6 +42,28 @@ function AppointmentsPage() {
     }
   };
 
+  const handleEditOpen = (appointment) => {
+    setCurrentAppointment(appointment);
+    setEditTime(appointment.appointmentTime.split('.')[0]);
+    setEditOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setEditOpen(false);
+    setCurrentAppointment(null);
+    setEditTime('');
+  };
+
+  const handleEditSubmit = async () => {
+    if (currentAppointment) {
+      const updatedAppointment = await updateAppointment(currentAppointment.id, editTime);
+      setAppointments(appointments.map((appointment) =>
+        appointment.id === currentAppointment.id ? updatedAppointment.data : appointment
+      ));
+      handleEditClose();
+    }
+  };
+
   return (
     <Box my={2}>
       <TextField
@@ -69,10 +94,30 @@ function AppointmentsPage() {
               primary={`Appointment with ${appointment.patient.firstName} ${appointment.patient.lastName}`}
               secondary={`${new Date(appointment.appointmentTime).toLocaleString()}`}
             />
+            <Button variant="contained" color="primary" onClick={() => handleEditOpen(appointment)}>Edit</Button>
             <Button variant="contained" color="secondary" onClick={() => handleDelete(appointment.id)}>Delete</Button>
           </ListItem>
         ))}
       </List>
+
+      <Dialog open={editOpen} onClose={handleEditClose}>
+        <DialogTitle>Edit Appointment</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Appointment Time"
+            type="datetime-local"
+            fullWidth
+            value={editTime}
+            onChange={(e) => setEditTime(e.target.value)}
+            InputLabelProps={{ shrink: true }}
+            margin="normal"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleEditClose} color="primary">Cancel</Button>
+          <Button onClick={handleEditSubmit} color="primary">Save</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

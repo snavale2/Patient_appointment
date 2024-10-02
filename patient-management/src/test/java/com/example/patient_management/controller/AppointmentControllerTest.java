@@ -1,7 +1,7 @@
 package com.example.patient_management.controller;
 
-import com.example.patient_management.model.Appointment;
-import com.example.patient_management.model.Patient;
+import com.example.patient_management.dto.AppointmentDTO;
+import com.example.patient_management.dto.PatientDTO;
 import com.example.patient_management.service.AppointmentService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,11 +30,11 @@ public class AppointmentControllerTest {
 
     @Test
     public void testGetAppointments() throws Exception {
-        Patient patient = new Patient(1L, "John", "Doe", "john.doe@example.com");
-        Appointment appointment1 = new Appointment(1L, patient, LocalDateTime.now().plusDays(1));
-        Appointment appointment2 = new Appointment(2L, patient, LocalDateTime.now().plusDays(2));
+        PatientDTO patient = new PatientDTO(1L, "John", "Doe", "john.doe@example.com");
+        AppointmentDTO appointment1 = new AppointmentDTO(1L, patient, LocalDateTime.now().plusDays(1));
+        AppointmentDTO appointment2 = new AppointmentDTO(2L, patient, LocalDateTime.now().plusDays(2));
 
-        List<Appointment> appointments = Arrays.asList(appointment1, appointment2);
+        List<AppointmentDTO> appointments = Arrays.asList(appointment1, appointment2);
 
         Mockito.when(appointmentService.getAllAppointments()).thenReturn(appointments);
 
@@ -51,8 +51,8 @@ public class AppointmentControllerTest {
 
     @Test
     public void testCreateAppointment() throws Exception {
-        Patient patient = new Patient(1L, "John", "Doe", "john.doe@example.com");
-        Appointment appointment = new Appointment(1L, patient, LocalDateTime.now().plusDays(1));
+        PatientDTO patient = new PatientDTO(1L, "John", "Doe", "john.doe@example.com");
+        AppointmentDTO appointment = new AppointmentDTO(1L, patient, LocalDateTime.now().plusDays(1));
 
         Mockito.when(appointmentService.createAppointmentByEmail(Mockito.anyString(), Mockito.any(LocalDateTime.class)))
                 .thenReturn(appointment);
